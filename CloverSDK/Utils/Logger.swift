@@ -16,7 +16,9 @@ func logIfDebug(_ title: String, obj: AnyObject?) {
   
   switch obj {
   case let dict as [String:String]: if !dict.isEmpty { log("\(title): \(dict)") }
-  case let data as Data: log("\(title): \(JSON(data: data))")
+  case let data as Data:
+    let jsonData = try! JSON(data: data)
+    log("\(title): \(jsonData)")
   default: log("\(title): \(obj)")
   }
 }

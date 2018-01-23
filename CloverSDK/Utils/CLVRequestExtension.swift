@@ -183,7 +183,7 @@ extension CLVRequest {
       if let statusCode = response.response?.statusCode, let data = response.data, error._code == -6003 {
         if statusCode == 429 { return .TOO_MANY_REQUESTS_EXCEPTION_429 }
         if statusCode == 401 { return .UNAUTHORIZED_EXCEPTION_401 }
-        let serverMessage = JSON(data: data)["message"].stringValue
+        let serverMessage = try! JSON(data: data)["message"].stringValue
         return .FAILURE(CLVError.unacceptableStatusCode(statusCode: statusCode, serverMessage: serverMessage))
       } else {
         return .FAILURE(CLVError.Error(response.error!))
